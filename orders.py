@@ -1,3 +1,5 @@
+from operator import length_hint
+
 orders = [
     {"id": 1, "status": "PAID", "amount": 1500},
     {"id": 2, "status": "NEW", "amount": 700},
@@ -84,6 +86,26 @@ assert count_orders_by_status([
 ) == {
            "PAID": 4,
        }
+
+
+def build_orders_report(orders):
+    report = {
+        "total_orders": len(orders),
+        "paid_total": calculate_paid_total(orders),
+        "orders_by_status": count_orders_by_status(orders)
+    }
+    return report
+
+assert build_orders_report(orders) == {
+    "total_orders": 4,
+    "paid_total": 4000,
+    "orders_by_status": {
+        "PAID": 2,
+        "NEW": 1,
+        "CANCELLED": 1,
+    },
+}
+
 
 # print(orders[0]["amount"])
 #
